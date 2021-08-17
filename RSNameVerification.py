@@ -65,4 +65,4 @@ async def on_message(message):
         #    await message.channel.send('Your username wasn\'t tracked on the WiseOldMan. I fixed that for you, please try again!')
 
 if __name__ == '__main__':
-    client.run('ODcyODc1NDI2MzQxNjA5NTAy.YQwOlg.FiVthFneI8XKjd8tj7Y2kaZ8Hc4')
+    client.run('TokenWhichIForgotToDeleteLikeADumbass')
