@@ -36,9 +36,36 @@ class Command_parser:
                 await(self.__commands__[k](argv=[m] + s[len(k)+1:].split(' ')))
                 break
 
-skill_rolls = ['Theiving', 'Fishing', 'Hunter']
-async def roll_a_random_skill(argv):
-    await argv[0].channel.send(random.choice(skill_rolls))
+
+all_skills = {'Agility', 'Construction',
+    'Cooking', 'Crafting', 'Farming',
+    'Firemaking', 'Fishing', 'Fletching',
+    'Herblore', 'Hunter', 'Mining',
+    'Runecraft', 'Smithing', 'Thieving',
+    'Woodcutting'}
+async def roll_a_random_skill(argv, loc='chosen_skills.txt'):
+    # read from files which skills were used previously
+    try:
+        with open(loc, 'r') as f:
+        prev_skills = set(f.readlines().split())
+    # if no such file exists, create an empty file
+    except:
+        open(loc, 'w').close()
+        prev_skills = set()
+
+    # possible skills to roll are all skills except previously rolled skills
+    skill_rolls = all_skills.difference(prev_skills)
+    # roll for random skill
+    rolled_skill = random.choice(skill_rolls)
+    # if only one left skill to chose from, reset file
+    if len(skill_rolls) == 1:
+        open(loc, 'w').close()
+    # write away chosen skill so we don't pick it again until all skills have been chosen
+    with open(loc, 'a') as f:
+        f.write(f'{rolled_skill}\n')
+
+    await argv[0].channel.send(rolled_skill)
+
 
 async def auto_nicknames(argv):
     message = argv[0]
