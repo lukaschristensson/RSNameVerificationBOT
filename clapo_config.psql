@@ -1,0 +1,14 @@
+DROP TABLE clapo_user_rsn;
+DROP TABLE clapo_config;
+
+CREATE TABLE clapo_config(
+    guild_id TEXT PRIMARY KEY,
+    admin_channel_name TEXT DEFAULT '',
+    clan_name TEXT DEFAULT ''
+);
+CREATE TABLE clapo_user_rsn(
+    guild_id TEXT,
+    discord_user_id TEXT,
+    rsn TEXT,
+    PRIMARY KEY (guild_id, discord_user_id)
+);
